@@ -14,13 +14,13 @@
     --text: #1a1714;
     --text-muted: #8a8279;
     --accent: #c4956a;
-    --accent-light: #f0e6d8;
-    --accent-dark: #9e7452;
     --green: #6b8f71;
     --green-light: #e8f0e9;
     --border: #e8e2d9;
     --shadow: rgba(26,23,20,0.06);
     --radius: 18px;
+    --purple: #9c6bb5;
+    --purple-light: #f5eefa;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -30,11 +30,9 @@
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    padding: 0;
     overflow-x: hidden;
   }
 
-  /* TOP HEADER */
   .header {
     background: var(--text);
     color: #fff;
@@ -74,7 +72,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* SECTIONS */
   .main {
     padding: 20px 18px 40px;
     display: flex;
@@ -110,9 +107,10 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 15px;
   }
-  .icon-am { background: #fff3e0; }
-  .icon-pm { background: #e8eaf6; }
-  .icon-habits { background: #e8f5e9; }
+  .icon-am      { background: #fff3e0; }
+  .icon-pm      { background: #e8eaf6; }
+  .icon-habits  { background: #e8f5e9; }
+  .icon-hair    { background: var(--purple-light); }
 
   .section-badge {
     font-size: 12px;
@@ -121,12 +119,12 @@
     border-radius: 20px;
     letter-spacing: 0.04em;
   }
-  .badge-am { background: #fff3e0; color: #e65100; }
-  .badge-pm { background: #e8eaf6; color: #3949ab; }
-  .badge-pm2 { background: #fce4ec; color: #c62828; }
+  .badge-am     { background: #fff3e0; color: #e65100; }
+  .badge-pm     { background: #e8eaf6; color: #3949ab; }
+  .badge-pm2    { background: #fce4ec; color: #c62828; }
   .badge-habits { background: var(--green-light); color: var(--green); }
+  .badge-hair   { background: var(--purple-light); color: var(--purple); }
 
-  /* CHECKLIST ITEMS */
   .check-item {
     display: flex;
     align-items: center;
@@ -165,6 +163,12 @@
   .check-item.optional .checkbox { border-style: dashed; }
   .check-item.optional.done .checkbox { border-style: solid; }
 
+  /* Hair item gets purple done state */
+  .check-item.hair-item.done .checkbox {
+    background: var(--purple);
+    border-color: var(--purple);
+  }
+
   .item-label {
     font-size: 17px;
     font-weight: 400;
@@ -183,7 +187,32 @@
     flex-shrink: 0;
   }
 
-  /* RESET NOTICE */
+  .hair-due-badge {
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--purple);
+    padding: 3px 9px;
+    border-radius: 10px;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.6; }
+  }
+  .hair-days-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--surface2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
   .reset-notice {
     text-align: center;
     font-size: 13px;
@@ -192,7 +221,6 @@
     letter-spacing: 0.02em;
   }
 
-  /* ALL DONE BANNER */
   .all-done {
     display: none;
     background: linear-gradient(135deg, var(--green), #4caf7d);
@@ -208,12 +236,8 @@
     font-size: 24px;
     margin-bottom: 6px;
   }
-  .all-done .sub {
-    font-size: 14px;
-    opacity: 0.85;
-  }
+  .all-done .sub { font-size: 14px; opacity: 0.85; }
 
-  /* NIGHT INDICATOR */
   .night-indicator {
     display: flex;
     align-items: center;
@@ -230,7 +254,6 @@
     background: var(--accent);
     flex-shrink: 0;
   }
-
 </style>
 </head>
 <body>
@@ -283,6 +306,22 @@
     <div class="check-item" data-key="teeth_pm" onclick="toggle(this)">
       <div class="checkbox">✓</div>
       <div class="item-label">Brush teeth — night</div>
+    </div>
+  </div>
+
+  <!-- HAIR WASH TRACKER -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">
+        <div class="icon icon-hair">💇</div>
+        Hair Care
+      </div>
+      <span class="section-badge badge-hair">EVERY 4 DAYS</span>
+    </div>
+    <div class="check-item hair-item" data-key="hair_wash" onclick="toggleHairWash(this)">
+      <div class="checkbox">✓</div>
+      <div class="item-label">Wash hair</div>
+      <div id="hairBadge" class="hair-days-tag">—</div>
     </div>
   </div>
 
@@ -357,6 +396,10 @@
         <div class="checkbox">✓</div>
         <div class="item-label">Eye Cream</div>
       </div>
+      <div class="check-item" data-key="pm1_neck" onclick="toggle(this)">
+        <div class="checkbox">✓</div>
+        <div class="item-label">Neck Cream</div>
+      </div>
       <div class="check-item" data-key="pm1_actrol" onclick="toggle(this)">
         <div class="checkbox">✓</div>
         <div class="item-label">Actrol Powder — t-zone</div>
@@ -389,6 +432,10 @@
         <div class="checkbox">✓</div>
         <div class="item-label">Eye Cream</div>
       </div>
+      <div class="check-item" data-key="pm2_neck" onclick="toggle(this)">
+        <div class="checkbox">✓</div>
+        <div class="item-label">Neck Cream</div>
+      </div>
       <div class="check-item" data-key="pm2_actrol" onclick="toggle(this)">
         <div class="checkbox">✓</div>
         <div class="item-label">Actrol Powder — t-zone</div>
@@ -396,32 +443,32 @@
     </div>
   </div>
 
-  <div class="reset-notice" id="resetNotice">Resets at midnight PST</div>
+  <div class="reset-notice">Resets at midnight PST</div>
 </div>
 
 <script>
-// ─── STATE ─────────────────────────────────────────────────────────────────
 const STORAGE_KEY = 'routine_state';
-const PM_KEY = 'pm_routine';     // 'pm1' | 'pm2'
-const DATE_KEY = 'routine_date'; // YYYY-MM-DD in PST
+const PM_KEY      = 'pm_routine';
+const DATE_KEY    = 'routine_date';
+const HAIR_KEY    = 'hair_last_wash'; // PST date string of last wash
 
 function getPSTDate() {
   return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' });
 }
 
+function daysBetween(a, b) {
+  return Math.round((new Date(b) - new Date(a)) / 86400000);
+}
+
 function loadState() {
   const today = getPSTDate();
   const savedDate = localStorage.getItem(DATE_KEY);
-
   if (savedDate !== today) {
-    // New day: rotate PM routine, clear checkboxes
-    const oldPM = localStorage.getItem(PM_KEY) || 'pm1'; // default start pm1
-    const newPM = oldPM === 'pm1' ? 'pm2' : 'pm1';
-    localStorage.setItem(PM_KEY, newPM);
+    const oldPM = localStorage.getItem(PM_KEY) || 'pm1';
+    localStorage.setItem(PM_KEY, oldPM === 'pm1' ? 'pm2' : 'pm1');
     localStorage.setItem(DATE_KEY, today);
     localStorage.setItem(STORAGE_KEY, JSON.stringify({}));
   }
-
   const checks = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
   const pm = localStorage.getItem(PM_KEY) || 'pm1';
   return { checks, pm };
@@ -431,112 +478,126 @@ function saveChecks(checks) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(checks));
 }
 
-// ─── RENDER ────────────────────────────────────────────────────────────────
 let { checks, pm } = loadState();
 
+// ── HAIR WASH ────────────────────────────────────────────────────────────────
+function renderHairBadge() {
+  const today    = getPSTDate();
+  const lastWash = localStorage.getItem(HAIR_KEY);
+  const badge    = document.getElementById('hairBadge');
+  const item     = document.querySelector('[data-key="hair_wash"]');
+
+  if (!lastWash) {
+    badge.className   = 'hair-due-badge';
+    badge.textContent = 'TAP WHEN DONE';
+    item.classList.remove('done');
+    return;
+  }
+
+  const days = daysBetween(lastWash, today);
+
+  if (days === 0) {
+    badge.className   = 'hair-days-tag';
+    badge.textContent = 'Washed today ✓';
+    item.classList.add('done');
+  } else if (days >= 4) {
+    badge.className   = 'hair-due-badge';
+    badge.textContent = days === 4 ? 'DUE TODAY' : `${days}d ago — wash today!`;
+    item.classList.remove('done');
+  } else {
+    badge.className   = 'hair-days-tag';
+    badge.textContent = `${days}d ago`;
+    item.classList.remove('done');
+  }
+}
+
+function toggleHairWash() {
+  const today    = getPSTDate();
+  const lastWash = localStorage.getItem(HAIR_KEY);
+  if (lastWash === today) {
+    localStorage.removeItem(HAIR_KEY);
+  } else {
+    localStorage.setItem(HAIR_KEY, today);
+  }
+  renderHairBadge();
+}
+
+// ── CORE RENDER ──────────────────────────────────────────────────────────────
 function renderPM() {
   document.getElementById('pm1Steps').style.display = pm === 'pm1' ? '' : 'none';
   document.getElementById('pm2Steps').style.display = pm === 'pm2' ? '' : 'none';
   const badge = document.getElementById('pmBadge');
   badge.textContent = pm === 'pm1' ? 'PM1' : 'PM2';
-  badge.className = 'section-badge ' + (pm === 'pm1' ? 'badge-pm' : 'badge-pm2');
+  badge.className   = 'section-badge ' + (pm === 'pm1' ? 'badge-pm' : 'badge-pm2');
   document.getElementById('pmDescription').textContent =
-    pm === 'pm1'
-      ? 'Tonight: Azelaic Serum routine'
-      : 'Tonight: Rejuv Rx routine';
+    pm === 'pm1' ? 'Tonight: Azelaic Serum routine' : 'Tonight: Rejuv Rx routine';
 }
 
 function renderChecks() {
-  document.querySelectorAll('.check-item').forEach(el => {
-    const key = el.dataset.key;
-    if (checks[key]) {
-      el.classList.add('done');
-    } else {
-      el.classList.remove('done');
-    }
+  document.querySelectorAll('.check-item:not(.hair-item)').forEach(el => {
+    el.classList.toggle('done', !!checks[el.dataset.key]);
   });
 }
 
-function getActiveKeys() {
-  // Get all keys currently visible
-  const allKeys = ['teeth_am', 'floss', 'teeth_pm',
+function getRequiredKeys() {
+  const keys = ['teeth_am', 'teeth_pm',
     'am_cleanse', 'am_ice', 'am_pore', 'am_moist', 'am_eye'];
   if (pm === 'pm1') {
-    allKeys.push('pm1_cleanse','pm1_ice','pm1_azelaic','pm1_beta','pm1_moist','pm1_eye','pm1_actrol');
+    keys.push('pm1_cleanse','pm1_ice','pm1_azelaic','pm1_beta','pm1_moist','pm1_eye','pm1_neck','pm1_actrol');
   } else {
-    allKeys.push('pm2_cleanse','pm2_ice','pm2_rejuv','pm2_beta','pm2_moist','pm2_eye','pm2_actrol');
+    keys.push('pm2_cleanse','pm2_ice','pm2_rejuv','pm2_beta','pm2_moist','pm2_eye','pm2_neck','pm2_actrol');
   }
-  return allKeys;
-}
-
-function getRequiredKeys() {
-  return getActiveKeys().filter(k => k !== 'floss');
+  return keys;
 }
 
 function updateProgress() {
   const required = getRequiredKeys();
-  const done = required.filter(k => checks[k]).length;
-  const pct = Math.round((done / required.length) * 100);
-
-  const circumference = 119.4;
-  const offset = circumference - (circumference * pct / 100);
-  document.getElementById('progressCircle').style.strokeDashoffset = offset;
+  const done     = required.filter(k => checks[k]).length;
+  const pct      = Math.round((done / required.length) * 100);
+  const circ     = 119.4;
+  document.getElementById('progressCircle').style.strokeDashoffset = circ - (circ * pct / 100);
   document.getElementById('progressPct').textContent = pct + '%';
-
-  const allDone = required.every(k => checks[k]);
-  document.getElementById('allDoneBanner').classList.toggle('visible', allDone);
+  document.getElementById('allDoneBanner').classList.toggle('visible', done === required.length);
 }
 
 function renderDate() {
-  const now = new Date();
   const opts = { timeZone: 'America/Los_Angeles' };
-  const month = now.toLocaleDateString('en-US', { ...opts, month: 'long' });
-  const day = now.toLocaleDateString('en-US', { ...opts, day: 'numeric' });
-  const weekday = now.toLocaleDateString('en-US', { ...opts, weekday: 'long' });
-  document.getElementById('headerDate').textContent = `${month} ${day}`;
-  document.getElementById('headerDay').textContent = weekday;
+  const now  = new Date();
+  document.getElementById('headerDate').textContent =
+    now.toLocaleDateString('en-US', { ...opts, month: 'long', day: 'numeric' });
+  document.getElementById('headerDay').textContent =
+    now.toLocaleDateString('en-US', { ...opts, weekday: 'long' });
 }
 
-// ─── INTERACTION ───────────────────────────────────────────────────────────
 function toggle(el) {
-  const key = el.dataset.key;
-  checks[key] = !checks[key];
+  checks[el.dataset.key] = !checks[el.dataset.key];
   saveChecks(checks);
   renderChecks();
   updateProgress();
 }
 
-// ─── MIDNIGHT RESET ────────────────────────────────────────────────────────
+// ── MIDNIGHT RESET ───────────────────────────────────────────────────────────
 function scheduleReset() {
-  const now = new Date();
-  const pst = new Date(now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
-  const nextMidnight = new Date(pst);
-  nextMidnight.setHours(24, 0, 0, 500);
-  const msUntil = nextMidnight - pst;
+  const pst  = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+  const next = new Date(pst);
+  next.setHours(24, 0, 0, 500);
   setTimeout(() => {
     ({ checks, pm } = loadState());
-    renderDate();
-    renderPM();
-    renderChecks();
-    updateProgress();
+    renderDate(); renderPM(); renderChecks(); renderHairBadge(); updateProgress();
     scheduleReset();
-  }, msUntil);
+  }, next - pst);
 }
 
-// ─── INIT ──────────────────────────────────────────────────────────────────
+// ── INIT ─────────────────────────────────────────────────────────────────────
 renderDate();
 renderPM();
 renderChecks();
+renderHairBadge();
 updateProgress();
 scheduleReset();
 
-// Prevent sleep / keep screen awake on iPad (best effort with Wake Lock API)
 async function keepAwake() {
-  try {
-    if ('wakeLock' in navigator) {
-      await navigator.wakeLock.request('screen');
-    }
-  } catch(e) {}
+  try { if ('wakeLock' in navigator) await navigator.wakeLock.request('screen'); } catch(e) {}
 }
 keepAwake();
 document.addEventListener('visibilitychange', () => {
