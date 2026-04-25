@@ -33,6 +33,7 @@
     overflow-x: hidden;
   }
 
+  /* HEADER */
   .header {
     background: var(--text);
     color: #fff;
@@ -72,6 +73,26 @@
     letter-spacing: 0.05em;
   }
 
+  /* AFFIRMATION */
+  .affirmation-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 13px 24px;
+    text-align: center;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+  .affirmation-bar span {
+    color: var(--accent);
+    font-style: normal;
+    font-size: 13px;
+    margin-right: 6px;
+  }
+
+  /* MAIN */
   .main {
     padding: 20px 18px 40px;
     display: flex;
@@ -79,13 +100,13 @@
     gap: 18px;
   }
 
+  /* SECTIONS */
   .section {
     background: var(--surface);
     border-radius: var(--radius);
     box-shadow: 0 2px 12px var(--shadow);
     overflow: hidden;
   }
-
   .section-header {
     padding: 16px 20px 12px;
     border-bottom: 1px solid var(--border);
@@ -107,10 +128,10 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 15px;
   }
-  .icon-am      { background: #fff3e0; }
-  .icon-pm      { background: #e8eaf6; }
-  .icon-habits  { background: #e8f5e9; }
-  .icon-hair    { background: var(--purple-light); }
+  .icon-habits { background: #e8f5e9; }
+  .icon-hair   { background: var(--purple-light); }
+  .icon-am     { background: #fff3e0; }
+  .icon-pm     { background: #e8eaf6; }
 
   .section-badge {
     font-size: 12px;
@@ -119,12 +140,13 @@
     border-radius: 20px;
     letter-spacing: 0.04em;
   }
+  .badge-habits { background: var(--green-light); color: var(--green); }
+  .badge-hair   { background: var(--purple-light); color: var(--purple); }
   .badge-am     { background: #fff3e0; color: #e65100; }
   .badge-pm     { background: #e8eaf6; color: #3949ab; }
   .badge-pm2    { background: #fce4ec; color: #c62828; }
-  .badge-habits { background: var(--green-light); color: var(--green); }
-  .badge-hair   { background: var(--purple-light); color: var(--purple); }
 
+  /* CHECK ITEMS */
   .check-item {
     display: flex;
     align-items: center;
@@ -142,7 +164,6 @@
     text-decoration: line-through;
     color: var(--text-muted);
   }
-
   .checkbox {
     width: 32px; height: 32px;
     border-radius: 9px;
@@ -162,13 +183,10 @@
   }
   .check-item.optional .checkbox { border-style: dashed; }
   .check-item.optional.done .checkbox { border-style: solid; }
-
-  /* Hair item gets purple done state */
   .check-item.hair-item.done .checkbox {
     background: var(--purple);
     border-color: var(--purple);
   }
-
   .item-label {
     font-size: 17px;
     font-weight: 400;
@@ -187,6 +205,7 @@
     flex-shrink: 0;
   }
 
+  /* HAIR BADGES */
   .hair-due-badge {
     font-size: 11px;
     font-weight: 700;
@@ -198,10 +217,7 @@
     flex-shrink: 0;
     animation: pulse 2s infinite;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.6; }
-  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
   .hair-days-tag {
     font-size: 11px;
     font-weight: 600;
@@ -213,31 +229,7 @@
     flex-shrink: 0;
   }
 
-  .reset-notice {
-    text-align: center;
-    font-size: 13px;
-    color: var(--text-muted);
-    padding: 10px 0 0;
-    letter-spacing: 0.02em;
-  }
-
-  .all-done {
-    display: none;
-    background: linear-gradient(135deg, var(--green), #4caf7d);
-    color: white;
-    border-radius: var(--radius);
-    padding: 24px 28px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(107,143,113,0.35);
-  }
-  .all-done.visible { display: block; }
-  .all-done .congrats {
-    font-family: 'DM Serif Display', serif;
-    font-size: 24px;
-    margin-bottom: 6px;
-  }
-  .all-done .sub { font-size: 14px; opacity: 0.85; }
-
+  /* NIGHT INDICATOR */
   .night-indicator {
     display: flex;
     align-items: center;
@@ -254,6 +246,32 @@
     background: var(--accent);
     flex-shrink: 0;
   }
+
+  /* ALL DONE BANNER */
+  .all-done {
+    display: none;
+    background: linear-gradient(135deg, var(--green), #4caf7d);
+    color: white;
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(107,143,113,0.35);
+  }
+  .all-done.visible { display: block; }
+  .all-done .congrats {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .all-done .sub { font-size: 14px; opacity: 0.88; line-height: 1.5; }
+
+  .reset-notice {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 10px 0 0;
+  }
 </style>
 </head>
 <body>
@@ -267,58 +285,51 @@
     <svg width="48" height="48" viewBox="0 0 48 48">
       <circle cx="24" cy="24" r="19" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="4"/>
       <circle id="progressCircle" cx="24" cy="24" r="19" fill="none" stroke="#c4956a" stroke-width="4"
-        stroke-linecap="round"
-        stroke-dasharray="119.4"
-        stroke-dashoffset="119.4"
-        transform="rotate(-90 24 24)"
-        style="transition: stroke-dashoffset 0.5s ease"/>
+        stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="119.4"
+        transform="rotate(-90 24 24)" style="transition:stroke-dashoffset 0.5s ease"/>
     </svg>
     <div class="pct" id="progressPct">0%</div>
   </div>
+</div>
+
+<!-- AFFIRMATION -->
+<div class="affirmation-bar">
+  <span>✦</span><em id="affirmationText">Loading...</em>
 </div>
 
 <div class="main">
 
   <!-- ALL DONE BANNER -->
   <div class="all-done" id="allDoneBanner">
-    <div class="congrats">✨ Routine Complete!</div>
-    <div class="sub">Amazing — you took care of yourself today.</div>
+    <div class="congrats" id="congratsText">✨ Routine Complete!</div>
+    <div class="sub" id="congratsSub">You showed up for yourself today.</div>
   </div>
 
   <!-- DAILY HABITS -->
   <div class="section">
     <div class="section-header">
-      <div class="section-title">
-        <div class="icon icon-habits">🌿</div>
-        Daily Habits
-      </div>
+      <div class="section-title"><div class="icon icon-habits">🌿</div>Daily Habits</div>
       <span class="section-badge badge-habits">EVERYDAY</span>
     </div>
     <div class="check-item" data-key="teeth_am" onclick="toggle(this)">
-      <div class="checkbox">✓</div>
-      <div class="item-label">Brush teeth — morning</div>
+      <div class="checkbox">✓</div><div class="item-label">Brush teeth — morning</div>
     </div>
     <div class="check-item optional" data-key="floss" onclick="toggle(this)">
-      <div class="checkbox">✓</div>
-      <div class="item-label">Floss</div>
+      <div class="checkbox">✓</div><div class="item-label">Floss</div>
       <div class="item-optional-tag">OPTIONAL</div>
     </div>
     <div class="check-item" data-key="teeth_pm" onclick="toggle(this)">
-      <div class="checkbox">✓</div>
-      <div class="item-label">Brush teeth — night</div>
+      <div class="checkbox">✓</div><div class="item-label">Brush teeth — night</div>
     </div>
   </div>
 
-  <!-- HAIR WASH TRACKER -->
+  <!-- HAIR TRACKER -->
   <div class="section">
     <div class="section-header">
-      <div class="section-title">
-        <div class="icon icon-hair">💇</div>
-        Hair Care
-      </div>
+      <div class="section-title"><div class="icon icon-hair">💇</div>Hair Care</div>
       <span class="section-badge badge-hair">EVERY 4 DAYS</span>
     </div>
-    <div class="check-item hair-item" data-key="hair_wash" onclick="toggleHairWash(this)">
+    <div class="check-item hair-item" data-key="hair_wash" onclick="toggleHairWash()">
       <div class="checkbox">✓</div>
       <div class="item-label">Wash hair</div>
       <div id="hairBadge" class="hair-days-tag">—</div>
@@ -328,41 +339,30 @@
   <!-- MORNING SKINCARE -->
   <div class="section">
     <div class="section-header">
-      <div class="section-title">
-        <div class="icon icon-am">☀️</div>
-        Morning Skincare
-      </div>
+      <div class="section-title"><div class="icon icon-am">☀️</div>Morning Skincare</div>
       <span class="section-badge badge-am">AM</span>
     </div>
     <div class="check-item" data-key="am_cleanse" onclick="toggle(this)">
-      <div class="checkbox">✓</div>
-      <div class="item-label">Cleanse</div>
+      <div class="checkbox">✓</div><div class="item-label">Cleanse</div>
     </div>
     <div class="check-item" data-key="am_ice" onclick="toggle(this)">
-      <div class="checkbox">✓</div>
-      <div class="item-label">Ice + Hypochlorous Wipe</div>
+      <div class="checkbox">✓</div><div class="item-label">Ice + Hypochlorous Wipe</div>
     </div>
     <div class="check-item" data-key="am_pore" onclick="toggle(this)">
-      <div class="checkbox">✓</div>
-      <div class="item-label">Pore Drops</div>
+      <div class="checkbox">✓</div><div class="item-label">Pore Drops</div>
     </div>
     <div class="check-item" data-key="am_moist" onclick="toggle(this)">
-      <div class="checkbox">✓</div>
-      <div class="item-label">Moisturizer</div>
+      <div class="checkbox">✓</div><div class="item-label">Moisturizer</div>
     </div>
     <div class="check-item" data-key="am_eye" onclick="toggle(this)">
-      <div class="checkbox">✓</div>
-      <div class="item-label">Eye Cream + SPF</div>
+      <div class="checkbox">✓</div><div class="item-label">Eye Cream + SPF</div>
     </div>
   </div>
 
   <!-- NIGHT SKINCARE -->
-  <div class="section" id="pmSection">
+  <div class="section">
     <div class="section-header">
-      <div class="section-title">
-        <div class="icon icon-pm">🌙</div>
-        Night Skincare
-      </div>
+      <div class="section-title"><div class="icon icon-pm">🌙</div>Night Skincare</div>
       <span class="section-badge" id="pmBadge">PM1</span>
     </div>
     <div class="night-indicator">
@@ -370,75 +370,59 @@
       <span id="pmDescription">—</span>
     </div>
 
-    <!-- PM1 steps -->
+    <!-- PM1 -->
     <div id="pm1Steps">
       <div class="check-item" data-key="pm1_cleanse" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Double Cleanse</div>
+        <div class="checkbox">✓</div><div class="item-label">Double Cleanse</div>
       </div>
       <div class="check-item" data-key="pm1_ice" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Ice</div>
+        <div class="checkbox">✓</div><div class="item-label">Ice</div>
       </div>
       <div class="check-item" data-key="pm1_azelaic" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Azelaic Serum</div>
+        <div class="checkbox">✓</div><div class="item-label">Azelaic Serum</div>
       </div>
       <div class="check-item" data-key="pm1_beta" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Beta Gel</div>
+        <div class="checkbox">✓</div><div class="item-label">Beta Gel</div>
       </div>
       <div class="check-item" data-key="pm1_moist" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Moisturizer</div>
+        <div class="checkbox">✓</div><div class="item-label">Moisturizer</div>
       </div>
       <div class="check-item" data-key="pm1_eye" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Eye Cream</div>
+        <div class="checkbox">✓</div><div class="item-label">Eye Cream</div>
       </div>
       <div class="check-item" data-key="pm1_neck" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Neck Cream</div>
+        <div class="checkbox">✓</div><div class="item-label">Neck Cream</div>
       </div>
       <div class="check-item" data-key="pm1_actrol" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Actrol Powder — t-zone</div>
+        <div class="checkbox">✓</div><div class="item-label">Actrol Powder — t-zone</div>
       </div>
     </div>
 
-    <!-- PM2 steps -->
+    <!-- PM2 -->
     <div id="pm2Steps" style="display:none">
       <div class="check-item" data-key="pm2_cleanse" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Double Cleanse</div>
+        <div class="checkbox">✓</div><div class="item-label">Double Cleanse</div>
       </div>
       <div class="check-item" data-key="pm2_ice" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Ice</div>
+        <div class="checkbox">✓</div><div class="item-label">Ice</div>
       </div>
       <div class="check-item" data-key="pm2_rejuv" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Rejuv Rx</div>
+        <div class="checkbox">✓</div><div class="item-label">Rejuv Rx</div>
       </div>
       <div class="check-item" data-key="pm2_beta" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Beta Gel</div>
+        <div class="checkbox">✓</div><div class="item-label">Beta Gel</div>
       </div>
       <div class="check-item" data-key="pm2_moist" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Moisturizer</div>
+        <div class="checkbox">✓</div><div class="item-label">Moisturizer</div>
       </div>
       <div class="check-item" data-key="pm2_eye" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Eye Cream</div>
+        <div class="checkbox">✓</div><div class="item-label">Eye Cream</div>
       </div>
       <div class="check-item" data-key="pm2_neck" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Neck Cream</div>
+        <div class="checkbox">✓</div><div class="item-label">Neck Cream</div>
       </div>
       <div class="check-item" data-key="pm2_actrol" onclick="toggle(this)">
-        <div class="checkbox">✓</div>
-        <div class="item-label">Actrol Powder — t-zone</div>
+        <div class="checkbox">✓</div><div class="item-label">Actrol Powder — t-zone</div>
       </div>
     </div>
   </div>
@@ -447,19 +431,73 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'routine_state';
-const PM_KEY      = 'pm_routine';
-const DATE_KEY    = 'routine_date';
-const HAIR_KEY    = 'hair_last_wash'; // PST date string of last wash
+// ── AFFIRMATIONS ─────────────────────────────────────────────────────────────
+const AFFIRMATIONS = [
+  "You don't have to earn rest. You are allowed to simply be.",
+  "Caring for yourself is not selfish — it is necessary and brave.",
+  "Your body has carried you through so much. It deserves your gentleness.",
+  "You are allowed to take up space, to slow down, to start over.",
+  "Healing is not linear, and neither are you — and that is okay.",
+  "You are worthy of the same care you so freely give to others.",
+  "Small acts of consistency are a form of love for your future self.",
+  "You are not behind. You are exactly where you need to be.",
+  "Your needs matter. Tending to them is an act of courage.",
+  "You are doing better than you think. Truly.",
+  "Being gentle with yourself is not weakness — it is wisdom.",
+  "You are allowed to feel good. You are allowed to thrive.",
+  "Every time you show up for yourself, you rewrite an old story.",
+  "Rest is productive. Stillness is powerful. You are enough.",
+  "Your softness is not a flaw. It is one of your greatest strengths.",
+];
+
+// ── COMPLETION MESSAGES ──────────────────────────────────────────────────────
+const COMPLETIONS = [
+  {
+    heading: "✨ Routine Complete!",
+    sub: "You showed up for yourself today — and that matters more than you know."
+  },
+  {
+    heading: "🌿 Look at you go.",
+    sub: "Every step you checked off tonight was an act of self-love. Rest well."
+  },
+  {
+    heading: "💛 Done. You did it.",
+    sub: "Your future self is grateful. Now let yourself rest without guilt."
+  },
+  {
+    heading: "🌙 Full routine. Full credit.",
+    sub: "You didn't skip yourself tonight. That's a big deal. Celebrate it."
+  },
+  {
+    heading: "✦ You took care of you.",
+    sub: "Consistency is how we heal. You're building something beautiful, one day at a time."
+  },
+  {
+    heading: "🫧 Glowing inside and out.",
+    sub: "You didn't just do your skincare — you practiced believing you're worth the effort."
+  },
+  {
+    heading: "💪 All done, all checked.",
+    sub: "Showing up for yourself daily is one of the most powerful things you can do."
+  },
+];
+
+// ── STORAGE KEYS ─────────────────────────────────────────────────────────────
+const STORAGE_KEY  = 'routine_state';
+const PM_KEY       = 'pm_routine';
+const DATE_KEY     = 'routine_date';
+const HAIR_KEY     = 'hair_last_wash';
+const AFFIRM_KEY   = 'affirmation_index';
+const CONGRATS_KEY = 'congrats_index';
 
 function getPSTDate() {
   return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' });
 }
-
 function daysBetween(a, b) {
   return Math.round((new Date(b) - new Date(a)) / 86400000);
 }
 
+// ── STATE ────────────────────────────────────────────────────────────────────
 function loadState() {
   const today = getPSTDate();
   const savedDate = localStorage.getItem(DATE_KEY);
@@ -468,71 +506,67 @@ function loadState() {
     localStorage.setItem(PM_KEY, oldPM === 'pm1' ? 'pm2' : 'pm1');
     localStorage.setItem(DATE_KEY, today);
     localStorage.setItem(STORAGE_KEY, JSON.stringify({}));
+    // Advance affirmation index each day
+    const ai = (parseInt(localStorage.getItem(AFFIRM_KEY) || '0') + 1) % AFFIRMATIONS.length;
+    localStorage.setItem(AFFIRM_KEY, ai);
   }
   const checks = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
   const pm = localStorage.getItem(PM_KEY) || 'pm1';
   return { checks, pm };
 }
-
-function saveChecks(checks) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(checks));
-}
+function saveChecks(c) { localStorage.setItem(STORAGE_KEY, JSON.stringify(c)); }
 
 let { checks, pm } = loadState();
 
-// ── HAIR WASH ────────────────────────────────────────────────────────────────
+// ── AFFIRMATION ───────────────────────────────────────────────────────────────
+function renderAffirmation() {
+  const idx = parseInt(localStorage.getItem(AFFIRM_KEY) || '0') % AFFIRMATIONS.length;
+  document.getElementById('affirmationText').textContent = AFFIRMATIONS[idx];
+}
+
+// ── HAIR WASH ─────────────────────────────────────────────────────────────────
 function renderHairBadge() {
   const today    = getPSTDate();
   const lastWash = localStorage.getItem(HAIR_KEY);
   const badge    = document.getElementById('hairBadge');
   const item     = document.querySelector('[data-key="hair_wash"]');
-
   if (!lastWash) {
-    badge.className   = 'hair-due-badge';
-    badge.textContent = 'TAP WHEN DONE';
-    item.classList.remove('done');
-    return;
+    badge.className = 'hair-due-badge'; badge.textContent = 'TAP WHEN DONE';
+    item.classList.remove('done'); return;
   }
-
   const days = daysBetween(lastWash, today);
-
   if (days === 0) {
-    badge.className   = 'hair-days-tag';
-    badge.textContent = 'Washed today ✓';
+    badge.className = 'hair-days-tag'; badge.textContent = 'Washed today ✓';
     item.classList.add('done');
   } else if (days >= 4) {
-    badge.className   = 'hair-due-badge';
+    badge.className = 'hair-due-badge';
     badge.textContent = days === 4 ? 'DUE TODAY' : `${days}d ago — wash today!`;
     item.classList.remove('done');
   } else {
-    badge.className   = 'hair-days-tag';
-    badge.textContent = `${days}d ago`;
+    badge.className = 'hair-days-tag'; badge.textContent = `${days}d ago`;
     item.classList.remove('done');
   }
 }
-
 function toggleHairWash() {
-  const today    = getPSTDate();
-  const lastWash = localStorage.getItem(HAIR_KEY);
-  if (lastWash === today) {
-    localStorage.removeItem(HAIR_KEY);
-  } else {
-    localStorage.setItem(HAIR_KEY, today);
-  }
+  const today = getPSTDate();
+  localStorage.getItem(HAIR_KEY) === today
+    ? localStorage.removeItem(HAIR_KEY)
+    : localStorage.setItem(HAIR_KEY, today);
   renderHairBadge();
 }
 
-// ── CORE RENDER ──────────────────────────────────────────────────────────────
+// ── PM RENDER ─────────────────────────────────────────────────────────────────
 function renderPM() {
   document.getElementById('pm1Steps').style.display = pm === 'pm1' ? '' : 'none';
   document.getElementById('pm2Steps').style.display = pm === 'pm2' ? '' : 'none';
   const badge = document.getElementById('pmBadge');
   badge.textContent = pm === 'pm1' ? 'PM1' : 'PM2';
-  badge.className   = 'section-badge ' + (pm === 'pm1' ? 'badge-pm' : 'badge-pm2');
+  badge.className = 'section-badge ' + (pm === 'pm1' ? 'badge-pm' : 'badge-pm2');
   document.getElementById('pmDescription').textContent =
     pm === 'pm1' ? 'Tonight: Azelaic Serum routine' : 'Tonight: Rejuv Rx routine';
 }
 
+// ── CHECKS ────────────────────────────────────────────────────────────────────
 function renderChecks() {
   document.querySelectorAll('.check-item:not(.hair-item)').forEach(el => {
     el.classList.toggle('done', !!checks[el.dataset.key]);
@@ -540,24 +574,32 @@ function renderChecks() {
 }
 
 function getRequiredKeys() {
-  const keys = ['teeth_am', 'teeth_pm',
-    'am_cleanse', 'am_ice', 'am_pore', 'am_moist', 'am_eye'];
-  if (pm === 'pm1') {
-    keys.push('pm1_cleanse','pm1_ice','pm1_azelaic','pm1_beta','pm1_moist','pm1_eye','pm1_neck','pm1_actrol');
-  } else {
-    keys.push('pm2_cleanse','pm2_ice','pm2_rejuv','pm2_beta','pm2_moist','pm2_eye','pm2_neck','pm2_actrol');
-  }
+  const keys = ['teeth_am','teeth_pm','am_cleanse','am_ice','am_pore','am_moist','am_eye'];
+  if (pm === 'pm1') keys.push('pm1_cleanse','pm1_ice','pm1_azelaic','pm1_beta','pm1_moist','pm1_eye','pm1_neck','pm1_actrol');
+  else              keys.push('pm2_cleanse','pm2_ice','pm2_rejuv','pm2_beta','pm2_moist','pm2_eye','pm2_neck','pm2_actrol');
   return keys;
 }
 
 function updateProgress() {
   const required = getRequiredKeys();
-  const done     = required.filter(k => checks[k]).length;
-  const pct      = Math.round((done / required.length) * 100);
-  const circ     = 119.4;
+  const done = required.filter(k => checks[k]).length;
+  const pct  = Math.round((done / required.length) * 100);
+  const circ = 119.4;
   document.getElementById('progressCircle').style.strokeDashoffset = circ - (circ * pct / 100);
   document.getElementById('progressPct').textContent = pct + '%';
-  document.getElementById('allDoneBanner').classList.toggle('visible', done === required.length);
+
+  const allDone = done === required.length;
+  const banner  = document.getElementById('allDoneBanner');
+
+  if (allDone && !banner.classList.contains('visible')) {
+    // Pick next congrats message
+    const ci = (parseInt(localStorage.getItem(CONGRATS_KEY) || '-1') + 1) % COMPLETIONS.length;
+    localStorage.setItem(CONGRATS_KEY, ci);
+    const msg = COMPLETIONS[ci];
+    document.getElementById('congratsText').textContent = msg.heading;
+    document.getElementById('congratsSub').textContent  = msg.sub;
+  }
+  banner.classList.toggle('visible', allDone);
 }
 
 function renderDate() {
@@ -576,23 +618,25 @@ function toggle(el) {
   updateProgress();
 }
 
-// ── MIDNIGHT RESET ───────────────────────────────────────────────────────────
+// ── MIDNIGHT RESET ────────────────────────────────────────────────────────────
 function scheduleReset() {
   const pst  = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
   const next = new Date(pst);
   next.setHours(24, 0, 0, 500);
   setTimeout(() => {
     ({ checks, pm } = loadState());
-    renderDate(); renderPM(); renderChecks(); renderHairBadge(); updateProgress();
+    renderDate(); renderPM(); renderChecks(); renderHairBadge();
+    renderAffirmation(); updateProgress();
     scheduleReset();
   }, next - pst);
 }
 
-// ── INIT ─────────────────────────────────────────────────────────────────────
+// ── INIT ──────────────────────────────────────────────────────────────────────
 renderDate();
 renderPM();
 renderChecks();
 renderHairBadge();
+renderAffirmation();
 updateProgress();
 scheduleReset();
 
