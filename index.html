@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Routine">
+<meta name="theme-color" content="#c4956a">
+<link rel="manifest" href="manifest.json">
 <title>Daily Routine</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
@@ -33,11 +38,11 @@
     overflow-x: hidden;
   }
 
-  /* HEADER */
   .header {
     background: var(--text);
     color: #fff;
     padding: 22px 28px 18px;
+    padding-top: max(22px, env(safe-area-inset-top));
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -73,7 +78,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* AFFIRMATION */
   .affirmation-bar {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -83,7 +87,6 @@
     font-style: italic;
     color: var(--text-muted);
     line-height: 1.5;
-    letter-spacing: 0.01em;
   }
   .affirmation-bar span {
     color: var(--accent);
@@ -92,15 +95,14 @@
     margin-right: 6px;
   }
 
-  /* MAIN */
   .main {
     padding: 20px 18px 40px;
+    padding-bottom: max(40px, env(safe-area-inset-bottom));
     display: flex;
     flex-direction: column;
     gap: 18px;
   }
 
-  /* SECTIONS */
   .section {
     background: var(--surface);
     border-radius: var(--radius);
@@ -146,7 +148,6 @@
   .badge-pm     { background: #e8eaf6; color: #3949ab; }
   .badge-pm2    { background: #fce4ec; color: #c62828; }
 
-  /* CHECK ITEMS */
   .check-item {
     display: flex;
     align-items: center;
@@ -205,49 +206,32 @@
     flex-shrink: 0;
   }
 
-  /* HAIR BADGES */
   .hair-due-badge {
-    font-size: 11px;
-    font-weight: 700;
-    color: #fff;
-    background: var(--purple);
-    padding: 3px 9px;
-    border-radius: 10px;
-    letter-spacing: 0.04em;
-    flex-shrink: 0;
+    font-size: 11px; font-weight: 700;
+    color: #fff; background: var(--purple);
+    padding: 3px 9px; border-radius: 10px;
+    letter-spacing: 0.04em; flex-shrink: 0;
     animation: pulse 2s infinite;
   }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
   .hair-days-tag {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-muted);
-    background: var(--surface2);
-    padding: 2px 8px;
-    border-radius: 10px;
-    letter-spacing: 0.04em;
-    flex-shrink: 0;
+    font-size: 11px; font-weight: 600;
+    color: var(--text-muted); background: var(--surface2);
+    padding: 2px 8px; border-radius: 10px;
+    letter-spacing: 0.04em; flex-shrink: 0;
   }
 
-  /* NIGHT INDICATOR */
   .night-indicator {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: flex; align-items: center; gap: 8px;
     padding: 10px 20px;
     background: var(--surface2);
-    font-size: 13px;
-    color: var(--text-muted);
-    font-weight: 500;
+    font-size: 13px; color: var(--text-muted); font-weight: 500;
   }
   .night-dot {
     width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
+    border-radius: 50%; background: var(--accent); flex-shrink: 0;
   }
 
-  /* ALL DONE BANNER */
   .all-done {
     display: none;
     background: linear-gradient(135deg, var(--green), #4caf7d);
@@ -260,17 +244,13 @@
   .all-done.visible { display: block; }
   .all-done .congrats {
     font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    margin-bottom: 8px;
-    line-height: 1.3;
+    font-size: 22px; margin-bottom: 8px; line-height: 1.3;
   }
   .all-done .sub { font-size: 14px; opacity: 0.88; line-height: 1.5; }
 
   .reset-notice {
-    text-align: center;
-    font-size: 13px;
-    color: var(--text-muted);
-    padding: 10px 0 0;
+    text-align: center; font-size: 13px;
+    color: var(--text-muted); padding: 10px 0 0;
   }
 </style>
 </head>
@@ -292,14 +272,12 @@
   </div>
 </div>
 
-<!-- AFFIRMATION -->
 <div class="affirmation-bar">
   <span>✦</span><em id="affirmationText">Loading...</em>
 </div>
 
 <div class="main">
 
-  <!-- ALL DONE BANNER -->
   <div class="all-done" id="allDoneBanner">
     <div class="congrats" id="congratsText">✨ Routine Complete!</div>
     <div class="sub" id="congratsSub">You showed up for yourself today.</div>
@@ -370,7 +348,6 @@
       <span id="pmDescription">—</span>
     </div>
 
-    <!-- PM1 -->
     <div id="pm1Steps">
       <div class="check-item" data-key="pm1_cleanse" onclick="toggle(this)">
         <div class="checkbox">✓</div><div class="item-label">Double Cleanse</div>
@@ -398,7 +375,6 @@
       </div>
     </div>
 
-    <!-- PM2 -->
     <div id="pm2Steps" style="display:none">
       <div class="check-item" data-key="pm2_cleanse" onclick="toggle(this)">
         <div class="checkbox">✓</div><div class="item-label">Double Cleanse</div>
@@ -431,7 +407,6 @@
 </div>
 
 <script>
-// ── AFFIRMATIONS ─────────────────────────────────────────────────────────────
 const AFFIRMATIONS = [
   "You don't have to earn rest. You are allowed to simply be.",
   "Caring for yourself is not selfish — it is necessary and brave.",
@@ -450,45 +425,24 @@ const AFFIRMATIONS = [
   "Your softness is not a flaw. It is one of your greatest strengths.",
 ];
 
-// ── COMPLETION MESSAGES ──────────────────────────────────────────────────────
 const COMPLETIONS = [
-  {
-    heading: "✨ Routine Complete!",
-    sub: "You showed up for yourself today — and that matters more than you know."
-  },
-  {
-    heading: "🌿 Look at you go.",
-    sub: "Every step you checked off tonight was an act of self-love. Rest well."
-  },
-  {
-    heading: "💛 Done. You did it.",
-    sub: "Your future self is grateful. Now let yourself rest without guilt."
-  },
-  {
-    heading: "🌙 Full routine. Full credit.",
-    sub: "You didn't skip yourself tonight. That's a big deal. Celebrate it."
-  },
-  {
-    heading: "✦ You took care of you.",
-    sub: "Consistency is how we heal. You're building something beautiful, one day at a time."
-  },
-  {
-    heading: "🫧 Glowing inside and out.",
-    sub: "You didn't just do your skincare — you practiced believing you're worth the effort."
-  },
-  {
-    heading: "💪 All done, all checked.",
-    sub: "Showing up for yourself daily is one of the most powerful things you can do."
-  },
+  { heading: "✨ Routine Complete!", sub: "You showed up for yourself today — and that matters more than you know." },
+  { heading: "🌿 Look at you go.", sub: "Every step you checked off tonight was an act of self-love. Rest well." },
+  { heading: "💛 Done. You did it.", sub: "Your future self is grateful. Now let yourself rest without guilt." },
+  { heading: "🌙 Full routine. Full credit.", sub: "You didn't skip yourself tonight. That's a big deal. Celebrate it." },
+  { heading: "✦ You took care of you.", sub: "Consistency is how we heal. You're building something beautiful, one day at a time." },
+  { heading: "🫧 Glowing inside and out.", sub: "You didn't just do your skincare — you practiced believing you're worth the effort." },
+  { heading: "💪 All done, all checked.", sub: "Showing up for yourself daily is one of the most powerful things you can do." },
 ];
 
-// ── STORAGE KEYS ─────────────────────────────────────────────────────────────
 const STORAGE_KEY  = 'routine_state';
 const PM_KEY       = 'pm_routine';
 const DATE_KEY     = 'routine_date';
 const HAIR_KEY     = 'hair_last_wash';
-const AFFIRM_KEY   = 'affirmation_index';
+const AFFIRM_DATE  = 'affirmation_start_date'; // date when current affirmation started
+const AFFIRM_IDX   = 'affirmation_index';
 const CONGRATS_KEY = 'congrats_index';
+const AFFIRM_DAYS  = 90; // change every N days
 
 function getPSTDate() {
   return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' });
@@ -506,9 +460,6 @@ function loadState() {
     localStorage.setItem(PM_KEY, oldPM === 'pm1' ? 'pm2' : 'pm1');
     localStorage.setItem(DATE_KEY, today);
     localStorage.setItem(STORAGE_KEY, JSON.stringify({}));
-    // Advance affirmation index each day
-    const ai = (parseInt(localStorage.getItem(AFFIRM_KEY) || '0') + 1) % AFFIRMATIONS.length;
-    localStorage.setItem(AFFIRM_KEY, ai);
   }
   const checks = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
   const pm = localStorage.getItem(PM_KEY) || 'pm1';
@@ -518,9 +469,31 @@ function saveChecks(c) { localStorage.setItem(STORAGE_KEY, JSON.stringify(c)); }
 
 let { checks, pm } = loadState();
 
-// ── AFFIRMATION ───────────────────────────────────────────────────────────────
+// ── AFFIRMATION (30-day rotation) ────────────────────────────────────────────
+function getAffirmationIndex() {
+  const today = getPSTDate();
+  const startDate = localStorage.getItem(AFFIRM_DATE);
+  const currentIdx = parseInt(localStorage.getItem(AFFIRM_IDX) || '0');
+
+  if (!startDate) {
+    // First ever load — set start date
+    localStorage.setItem(AFFIRM_DATE, today);
+    localStorage.setItem(AFFIRM_IDX, '0');
+    return 0;
+  }
+
+  const daysSinceStart = daysBetween(startDate, today);
+  const periodsElapsed = Math.floor(daysSinceStart / AFFIRM_DAYS);
+  const newIdx = periodsElapsed % AFFIRMATIONS.length;
+
+  if (newIdx !== currentIdx) {
+    localStorage.setItem(AFFIRM_IDX, newIdx);
+  }
+  return newIdx;
+}
+
 function renderAffirmation() {
-  const idx = parseInt(localStorage.getItem(AFFIRM_KEY) || '0') % AFFIRMATIONS.length;
+  const idx = getAffirmationIndex();
   document.getElementById('affirmationText').textContent = AFFIRMATIONS[idx];
 }
 
@@ -572,14 +545,12 @@ function renderChecks() {
     el.classList.toggle('done', !!checks[el.dataset.key]);
   });
 }
-
 function getRequiredKeys() {
   const keys = ['teeth_am','teeth_pm','am_cleanse','am_ice','am_pore','am_moist','am_eye'];
   if (pm === 'pm1') keys.push('pm1_cleanse','pm1_ice','pm1_azelaic','pm1_beta','pm1_moist','pm1_eye','pm1_neck','pm1_actrol');
   else              keys.push('pm2_cleanse','pm2_ice','pm2_rejuv','pm2_beta','pm2_moist','pm2_eye','pm2_neck','pm2_actrol');
   return keys;
 }
-
 function updateProgress() {
   const required = getRequiredKeys();
   const done = required.filter(k => checks[k]).length;
@@ -587,17 +558,13 @@ function updateProgress() {
   const circ = 119.4;
   document.getElementById('progressCircle').style.strokeDashoffset = circ - (circ * pct / 100);
   document.getElementById('progressPct').textContent = pct + '%';
-
   const allDone = done === required.length;
   const banner  = document.getElementById('allDoneBanner');
-
   if (allDone && !banner.classList.contains('visible')) {
-    // Pick next congrats message
     const ci = (parseInt(localStorage.getItem(CONGRATS_KEY) || '-1') + 1) % COMPLETIONS.length;
     localStorage.setItem(CONGRATS_KEY, ci);
-    const msg = COMPLETIONS[ci];
-    document.getElementById('congratsText').textContent = msg.heading;
-    document.getElementById('congratsSub').textContent  = msg.sub;
+    document.getElementById('congratsText').textContent = COMPLETIONS[ci].heading;
+    document.getElementById('congratsSub').textContent  = COMPLETIONS[ci].sub;
   }
   banner.classList.toggle('visible', allDone);
 }
@@ -610,7 +577,6 @@ function renderDate() {
   document.getElementById('headerDay').textContent =
     now.toLocaleDateString('en-US', { ...opts, weekday: 'long' });
 }
-
 function toggle(el) {
   checks[el.dataset.key] = !checks[el.dataset.key];
   saveChecks(checks);
@@ -621,23 +587,23 @@ function toggle(el) {
 // ── MIDNIGHT RESET ────────────────────────────────────────────────────────────
 function scheduleReset() {
   const pst  = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
-  const next = new Date(pst);
-  next.setHours(24, 0, 0, 500);
+  const next = new Date(pst); next.setHours(24, 0, 0, 500);
   setTimeout(() => {
     ({ checks, pm } = loadState());
-    renderDate(); renderPM(); renderChecks(); renderHairBadge();
-    renderAffirmation(); updateProgress();
+    renderDate(); renderPM(); renderChecks(); renderHairBadge(); renderAffirmation(); updateProgress();
     scheduleReset();
   }, next - pst);
 }
 
+// ── SERVICE WORKER ────────────────────────────────────────────────────────────
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/my-routine/sw.js').catch(() => {});
+  });
+}
+
 // ── INIT ──────────────────────────────────────────────────────────────────────
-renderDate();
-renderPM();
-renderChecks();
-renderHairBadge();
-renderAffirmation();
-updateProgress();
+renderDate(); renderPM(); renderChecks(); renderHairBadge(); renderAffirmation(); updateProgress();
 scheduleReset();
 
 async function keepAwake() {
